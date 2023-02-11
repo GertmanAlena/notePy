@@ -1,55 +1,64 @@
 import json
 import datetime as DT
 
-notes = {}
 
-
-def new_note(name, text):
+def new_note(name, text, r_notes):
     data_now = DT.datetime.now().strftime("%d.%m.%Y")
 
-    r_n = read_notes()
-    print("r_n ", r_n)
-    if r_n is None:
-        id = 1
-        notes = dict({'идентификатор': id, 'заголовок': name, 'заметка': text, 'дату/время': data_now})
-        print('\033[30m\033[42m\033[4m {}\033[0m'.format('Заметка добавлена'))
-
+    if r_notes != None:
+        print("len(r_notes) ", len(r_notes))
+        x = len(r_notes)
+        id = x + 1
+        print("id + 1 ", id)
     else:
-        for i in r_n:
-            if i == str(data_now):
-                print("i ", i)
-                print(notes[i])
+        id = 0
+    dict_notes = {}
+    dict_notes["id"] = id
+    dict_notes["header"] = name
+    dict_notes["note"] = text
+    dict_notes["date/time"] = data_now
 
-                notes.update({name: text})
-                # i = {name: text}
-            else:
-                notes = dict({'id': id, 'header': name, 'note': text, 'date/time': data_now})
+    return dict_notes
+    # for i in r_notes:
+    #     if i["id"] == id:
+    #         id+=1
+    #         print(f'id: {i["id"]} header: {i["header"]} note: {i["note"]} date/time: {i["date/time"]}')
+    #     else:
 
-    try:
-        with open('notes.json', 'a', encoding="utf-8") as file:
-            json.dump(notes, file, indent=2, ensure_ascii=False)
-        print('\033[30m\033[42m\033[4m {}\033[0m'.format('Заметка добавлена'))
-        print('-' * 50)
 
-    except Exception as e:
-        print("ошибка " + e)
+
+
 
 def read_notes():
-    """Функция вывода всех заметок"""
     try:
+        with open('notes.json', 'r', encoding="utf-8") as file:
+            r_notes = json.load(file)
+            return r_notes
+    except:
+        r_notes = []
+        if len(r_notes) == 0:
+            print('\033[43m\033[1m {} \033[0m'.format(
+                'ничего не найдено!'))
+        return r_notes
 
-        with open('notes.json', 'r') as file:
-            notes = json.load(file)
-            if len(notes) == 0:
-                print('\033[43m\033[1m {} \033[0m'.format(
-                    'Ваш список заметок пуст!'))
-            else:
-                for i in notes:
-                    print(i)
-                    # print(f'\033[44m {i}\033[0m\n')
 
-            return notes
-    except Exception as e:
-        print("ошибка ", e)
-        return None
+def show_notes(r_notes):
+    """Функция вывода всех заметок"""
 
+    if len(r_notes) == 0:
+        print('\033[43m\033[1m {} \033[0m'.format(
+            'ничего не найдено!'))
+    else:
+        for i in r_notes:
+            print(f'id: {i["id"]} header: {i["header"]} note: {i["note"]} date/time: {i["date/time"]}')
+
+
+def record(r_notes, dict_notes):
+
+    r_notes.append(dict_notes)
+
+    with open('notes.json', 'w', encoding="utf-8") as file:
+        json.dump(r_notes, file, indent=2, ensure_ascii=False)
+    print('\033[30m\033[42m\033[4m {}\033[0m'.format('Заметка добавлена!!'))
+
+    print('-' * 50)
