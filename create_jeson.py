@@ -2,8 +2,9 @@ import json
 import datetime as DT
 
 
-def new_note(name, text, r_notes):
+def new_note(name, text):
     data_now = DT.datetime.now().strftime("%d.%m.%Y")
+    r_notes = read_notes()
 
     if r_notes != None:
         print("len(r_notes) ", len(r_notes))
@@ -25,33 +26,32 @@ def new_note(name, text, r_notes):
     #         print(f'id: {i["id"]} header: {i["header"]} note: {i["note"]} date/time: {i["date/time"]}')
     #     else:
 
-
-
-
-
 def read_notes():
     try:
         with open('notes.json', 'r', encoding="utf-8") as file:
             r_notes = json.load(file)
             return r_notes
     except:
-        r_notes = []
+        r_notes = {}
         if len(r_notes) == 0:
             print('\033[43m\033[1m {} \033[0m'.format(
                 'ничего не найдено!'))
         return r_notes
 
 
-def show_notes(r_notes):
+def show_notes():
     """Функция вывода всех заметок"""
-
+    all_note = []
+    r_notes = read_notes()
     if len(r_notes) == 0:
+        text = 'ничего не найдено!'
         print('\033[43m\033[1m {} \033[0m'.format(
             'ничего не найдено!'))
     else:
         for i in r_notes:
-            print(f'id: {i["id"]} header: {i["header"]} note: {i["note"]} date/time: {i["date/time"]}')
-
+            all_note.append(i)
+            # print(f'id: {i["id"]} header: {i["header"]} note: {i["note"]} date/time: {i["date/time"]}')
+    lbl.configure(text=all_note)
 
 def record(r_notes, dict_notes):
 
