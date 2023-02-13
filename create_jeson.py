@@ -1,5 +1,7 @@
 import json
 import datetime as DT
+import operator
+
 
 def new_note(name, text):
     data_now = DT.datetime.now().strftime("%d.%m.%Y")
@@ -53,6 +55,27 @@ def show_notes():
             x = str(k["id"]) + " " + str(k["header"]) + " " + str(k["note"]) + " " + str(k["date/time"]) + '\n'
             all_note.append(x)
         return all_note
+
+def sort_notes():
+    """Функция сортировки всех заметок"""
+    all_note = []
+    r_notes = read_notes()
+    data_now = DT.datetime.now().strftime("%d.%m.%Y")
+    if len(r_notes) == 0:
+        t = 'ничего не найдено!'
+        print('\033[43m\033[1m {} \033[0m'.format(
+            'ничего не найдено!'))
+        return t
+    else:
+        stocks = sorted(r_notes, key=lambda x: DT.datetime.strptime(x['date/time'], '%d.%m.%Y'), reverse=False)
+        print("stocks", stocks)
+
+        for k in stocks:
+            x = str(k["id"]) + " " + str(k["header"]) + " " + str(k["note"]) + " " + str(k["date/time"]) + '\n'
+            all_note.append(x)
+        return all_note
+
+        # return all_note
 
 def record(r_notes):
     try:

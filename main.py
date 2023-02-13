@@ -2,10 +2,9 @@ import tkinter as tk
 from tkinter import ttk, Text, scrolledtext, NW
 from tkinter.messagebox import showinfo
 import create_jeson as crJ
-
-
+import sort as s
 class App(tk.Tk):
-
+   """Основное окно с кнопками"""
    def __init__(self):
       super().__init__()
 
@@ -22,17 +21,27 @@ class App(tk.Tk):
       self.button['command'] = self.show
       self.button.pack(anchor=NW)
 
-      self.button2 = ttk.Button(self, text='Новая заметка')
-      self.button2['command'] = self.new_window
-      self.button2.pack(anchor=NW)
-
       self.button2 = ttk.Button(self, text='Удалить все заметки')
       self.button2['command'] = self.delete_notes
       self.button2.pack(anchor=NW)
 
+      self.button3 = ttk.Button(self, text='Новая заметка')
+      self.button3['command'] = self.new_window
+      self.button3.pack(anchor=NW)
+
+      self.button4 = ttk.Button(self, text='Сортировка заметок по дате')
+      self.button4['command'] = self.sort_window
+      self.button4.pack(anchor=NW)
+
    def new_window(self):
+      """переход в класс новой заметки"""
       Second_win().mainloop()
+
+   def sort_window(self):
+      """переход в класс новой sort"""
+      s.Show_win().mainloop()
    def show(self):
+      """переход в класс удаления заметок"""
       Show_win().mainloop()
 
 
@@ -49,10 +58,8 @@ class App(tk.Tk):
 
    def clicked(self, text):
       tk.messagebox.showinfo(',,,', text)
-
-
 class Second_win(tk.Tk):
-
+   """класс новой заметки"""
    def get_text(self):
       global e1, e2
       print("....5...")
@@ -91,19 +98,9 @@ class Second_win(tk.Tk):
 
 
    def clear_text(self):
+      """очистка строк ввода после добавления данных"""
       e1.delete(0, 'end')
       e2.delete(0, 'end')
-
-
-   # def show_notes(self):
-   #    """Функция вывода всех заметок"""
-   #    print("...1.1...")
-   #    self.text = Text(width=30, height=7)
-   #    self.text.pack()
-   #    t = crJ.show_notes()
-   #    print("t", t)
-   #    self.text.insert(1.0, ''.join(t))
-
 
 class Show_win(tk.Tk):
    """Функция вывода всех заметок"""
