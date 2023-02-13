@@ -1,8 +1,6 @@
 import json
 import datetime as DT
 import operator
-
-
 def new_note(name, text):
     data_now = DT.datetime.now().strftime("%d.%m.%Y")
     r_notes = read_notes()

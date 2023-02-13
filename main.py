@@ -3,6 +3,7 @@ from tkinter import ttk, Text, scrolledtext, NW
 from tkinter.messagebox import showinfo
 import create_jeson as crJ
 import sort as s
+import search as s2
 class App(tk.Tk):
    """Основное окно с кнопками"""
    def __init__(self):
@@ -33,10 +34,18 @@ class App(tk.Tk):
       self.button4['command'] = self.sort_window
       self.button4.pack(anchor=NW)
 
+      self.button5 = ttk.Button(self, text='Поиск заметки')
+      self.button5['command'] = self.search_window
+      self.button5.pack(anchor=NW)
+
+
+
    def new_window(self):
       """переход в класс новой заметки"""
       Second_win().mainloop()
-
+   def search_window(self):
+      """переход в класс новой заметки"""
+      s2.Search_win().mainloop()
    def sort_window(self):
       """переход в класс новой sort"""
       s.Show_win().mainloop()
