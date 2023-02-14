@@ -10,26 +10,28 @@ class Сhange_win(tk.Tk):
 
         if self.date.get() == 1: result = f"{result} Ищем по дате"
         if self.name.get() == 1: result = f"{result} Ищем по названию"
-        self.search.set(result)
+        self.label = tk.Label(self, text=result)
+        self.label.pack(**self.position)
+        # self.search.set(result)
 
     def __init__(self):
         super().__init__()
 
-        self.title('Изменение заметки')
+        self.title('Снова ищем')
         self.geometry('400x250')
 
-        self.position = {"padx":6, "pady":6, "anchor":NW}
+        self.position = {"padx":6, "pady":6, "anchor": NW}
 
         self.search = tk.StringVar()
-        self.languages_label = ttk.Label(textvariable=self.search)
-        self.languages_label.pack(**self.position)
+        self.search_label = tk.Label(self, textvariable=self.search)
+        self.search_label.pack(**self.position)
 
         self.date = tk.IntVar()
-        self.date_checkbutton = ttk.Checkbutton(text="Ищем по дате", variable=self.date, command=self.select)
+        self.date_checkbutton = tk.Checkbutton(self, text="Ищем по дате", variable=self.date, command=self.select)
         self.date_checkbutton.pack(**self.position)
 
         self.name = tk.IntVar()
-        self.name_checkbutton = ttk.Checkbutton(text="Ищем по названию", variable=self.name, command=self.select)
+        self.name_checkbutton = tk.Checkbutton(self, text="Ищем по названию", variable=self.name, command=self.select)
         self.name_checkbutton.pack(**self.position)
 
 
