@@ -1,9 +1,11 @@
 import tkinter as tk
-from tkinter import ttk, Text, scrolledtext, NW
+from tkinter import ttk, NW
 from tkinter.messagebox import showinfo
 import create_jeson as crJ
 import sort as s
 import search as s2
+import new_note as nn
+import change_note as chN
 class App(tk.Tk):
    """Основное окно с кнопками"""
    def __init__(self):
@@ -38,21 +40,28 @@ class App(tk.Tk):
       self.button5['command'] = self.search_window
       self.button5.pack(anchor=NW)
 
+      self.button5 = ttk.Button(self, text='Изменение заметки')
+      self.button5['command'] = self.change_window
+      self.button5.pack(anchor=NW)
 
 
    def new_window(self):
       """переход в класс новой заметки"""
-      Second_win().mainloop()
+      nn.New_note_win().mainloop()
    def search_window(self):
-      """переход в класс новой заметки"""
+      """поиск заметки заметки"""
       s2.Search_win().mainloop()
+
+   def change_window(self):
+      """изменение заметки"""
+      chN.Сhange_win().mainloop()
    def sort_window(self):
       """переход в класс новой sort"""
       s.Show_win().mainloop()
    def show(self):
       """переход в класс удаления заметок"""
-      Show_win().mainloop()
-
+      res = crJ.show_notes()
+      nn.Show_win("ссмотрим все заметки", res).mainloop()
 
    def delete_notes(self):
       """Функция удаления всех заметок"""
@@ -67,67 +76,9 @@ class App(tk.Tk):
 
    def clicked(self, text):
       tk.messagebox.showinfo(',,,', text)
-class Second_win(tk.Tk):
-   """класс новой заметки"""
-   def get_text(self):
-      global e1, e2
-      print("....5...")
-      name = e1.get()
-      print(name, "name")
-      input_text = e2.get()
-      print("input_text ", input_text)
-      bol = crJ.new_note(name, input_text)
-      print("bol", bol)
-      if bol == True:
-         self.clear_text()
-         self.label = ttk.Label(self, text=f"{name} {input_text}\nЗаметка успешно добавлена!!!!").grid(row=8)
-         self.after(3000, self.destroy)
-
-   def __init__(self):
-      super().__init__()
-
-      global e1, e2
-      self.title('Новая заметка')
-      self.geometry('300x250')
-
-      self.label = ttk.Label(self, text="Введите имя заметки").grid(row=0)
-      self.label = ttk.Label(self, text="Введите заметку").grid(row=1)
-
-      e1 = ttk.Entry(self)
-      e2 = ttk.Entry(self)
-
-      e1.grid(row=0, column=1)
-      e2.grid(row=1, column=1)
-
-      cal_btn = ttk.Button(self, text='Добавить заметку', command=self.get_text)
-      cal_btn.grid(row=5, column=0)
-
-      cal_btn2 = ttk.Button(self, text='Назад', command=self.destroy)
-      cal_btn2.grid(row=6, column=0)
 
 
-   def clear_text(self):
-      """очистка строк ввода после добавления данных"""
-      e1.delete(0, 'end')
-      e2.delete(0, 'end')
 
-class Show_win(tk.Tk):
-   """Функция вывода всех заметок"""
-
-   def __init__(self):
-      super().__init__()
-
-      self.title('Список всех заметок')
-      self.geometry('400x250')
-
-      self.txt = scrolledtext.ScrolledText(self, width=40, height=10)
-      self.txt.grid(column=0, row=0)
-
-      t = crJ.show_notes()
-      self.txt.insert(1.0, ''.join(t))
-
-      cal_btn = ttk.Button(self, text='Назад', command=self.destroy)
-      cal_btn.grid(row=6, column=0)
 
 if __name__ == "__main__":
   app = App()

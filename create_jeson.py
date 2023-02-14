@@ -1,6 +1,6 @@
 import json
 import datetime as DT
-import operator
+
 def new_note(name, text):
     data_now = DT.datetime.now().strftime("%d.%m.%Y")
     r_notes = read_notes()
@@ -99,4 +99,42 @@ def delete_notes():
         record(r_notes)
         return True
 
+def search_note(name):
+    """Функция поиска заметки"""
 
+    all_note = []
+    r_notes = read_notes()
+
+    if len(r_notes) == 0:
+        t = 'ничего не найдено!'
+        print('\033[43m\033[1m {} \033[0m'.format(
+            'ничего не найдено!'))
+        return t
+    else:
+        for k in r_notes:
+            print(".....")
+            if str(k["header"]) == name:
+                print("k[header]", k["header"])
+                x = str(k["id"]) + " " + str(k["header"]) + " " + str(k["note"]) + " " + str(k["date/time"]) + '\n'
+                print("x ", x)
+                all_note.append(x)
+        print("all ", all_note)
+        return all_note
+
+def search_note_date(dat):
+    """Функция поиска заметки"""
+
+    all_note = []
+    r_notes = read_notes()
+
+    if len(r_notes) == 0:
+        t = 'ничего не найдено!'
+        print('\033[43m\033[1m {} \033[0m'.format(
+            'ничего не найдено!'))
+        return t
+    else:
+        for k in r_notes:
+            if str(k["date/time"]) == dat:
+                x = str(k["id"]) + " " + str(k["header"]) + " " + str(k["note"]) + " " + str(k["date/time"]) + '\n'
+                all_note.append(x)
+        return all_note
