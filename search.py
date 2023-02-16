@@ -38,6 +38,7 @@ class Search_win(tk.Tk):
             self.cal_btn = ttk.Button(self, text='найти', command=self.get_text)
             self.cal_btn.pack(anchor=NW)
 
+
         if selection == "по дате":
             self.label = tk.Label(self, text='введите дату в формате дд.мм.год(00.00.0000)')
             self.label.pack(anchor=NW, padx=6, pady=6)
@@ -46,6 +47,7 @@ class Search_win(tk.Tk):
             self.e.focus()
             self.cal_btn = ttk.Button(self, text='найти', command=self.get_text2)
             self.cal_btn.pack(anchor=NW)
+
     def clear_text(self):
         """очистка строк ввода после добавления данных"""
         self.e.delete(0, 'end')
@@ -56,7 +58,7 @@ class Search_win(tk.Tk):
         self.title('Поиск заметки')
         self.geometry('400x250')
 
-        self.label = tk.Label(self, text='Как будем искать заметку??!', foreground='blue')
+        self.label = tk.Label(self, text='Как найти заметку??!', foreground='blue')
         self.label.pack()
 
         search_note = ["по названию", "по дате"]
