@@ -4,13 +4,6 @@ import datetime as DT
 def new_note(name, text):
     data_now = DT.datetime.now().strftime("%d.%m.%Y")
     r_notes = read_notes()
-    print("r_notes ", r_notes)
-    # if len(r_notes) != 0:
-    #     print("len(r_notes) ", len(r_notes))
-    #     x = len(r_notes)
-        # id = x + 1
-        # print("id + 1 ", id)
-    # else:
     id = 0
     dict_notes = {}
     dict_notes["id"] = id
@@ -73,8 +66,6 @@ def sort_notes():
             all_note.append(x)
         return all_note
 
-        # return all_note
-
 def record(r_notes):
     print("r_notes 1 ", r_notes)
     x = 1
@@ -135,9 +126,6 @@ def search_note_date(dat):
     print("r_notes", r_notes)
 
     if len(r_notes) == 0:
-        # t = 'ничего не найдено!'
-        # print('\033[43m\033[1m {} \033[0m'.format(
-        #     'ничего не найдено!'))
         return 0
     else:
         for k in r_notes:
@@ -173,7 +161,7 @@ def note_sel(note):
             x.append(k["header"])
             x.append(k["note"])
             print(k, "kkkk")
-            # r_notes.remove(k)
+
             return x
 
 

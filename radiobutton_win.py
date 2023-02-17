@@ -17,7 +17,7 @@ class Selected_n(tk.Tk):
             self.after(3000, self.destroy)
     def __init__(self, res):
         super().__init__()
-        self.geometry('420x100')
+        self.geometry('420x150')
         self.title('окно изменения заметки')
 
         x = crJ.note_sel(res)
@@ -40,8 +40,7 @@ class Selected_n(tk.Tk):
         self.e2.grid(row=3, column=1)
         self.e2.insert(0, note)
         ttk.Button(self, text="Изменить", command=self.get_text).grid(row=4, column=0)
-
-
+        self.quit()
         # showinfo(title="Информация", message="Заметка изменена!! ")
         # self.after(200, self.destroy)
 
@@ -53,7 +52,6 @@ if __name__ == "__main__":
 
 class Radiobutton_change(tk.Tk):
     def change(self):
-        print(self.selected_note, "+++++")
         Selected_n(self.selected_note).mainloop()
     def note_del(self):
         bol = crJ.note_del(self.selected_note)
@@ -75,7 +73,7 @@ class Radiobutton_change(tk.Tk):
 
         super().__init__()
 
-        self.title('............')
+        self.title('результат поиска')
         self.geometry('300x300')
         self.config(bg='#446644')
 
@@ -98,6 +96,7 @@ class Radiobutton_change(tk.Tk):
                 self.notes_listbox.insert(1, i)
                 x += 1
         self.notes_listbox.bind("<<ListboxSelect>>", self.selected)
+        self.after(5000, self.destroy)
 
 if __name__ == "__main__":
     app = Radiobutton_change()
