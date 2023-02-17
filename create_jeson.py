@@ -5,13 +5,13 @@ def new_note(name, text):
     data_now = DT.datetime.now().strftime("%d.%m.%Y")
     r_notes = read_notes()
     print("r_notes ", r_notes)
-    if len(r_notes) != 0:
-        print("len(r_notes) ", len(r_notes))
-        x = len(r_notes)
-        id = x + 1
-        print("id + 1 ", id)
-    else:
-        id = 0
+    # if len(r_notes) != 0:
+    #     print("len(r_notes) ", len(r_notes))
+    #     x = len(r_notes)
+        # id = x + 1
+        # print("id + 1 ", id)
+    # else:
+    id = 0
     dict_notes = {}
     dict_notes["id"] = id
     dict_notes["header"] = name
@@ -76,6 +76,12 @@ def sort_notes():
         # return all_note
 
 def record(r_notes):
+    print("r_notes 1 ", r_notes)
+    x = 1
+    for k in r_notes:
+        k["id"] = x
+        x += 1
+    print("r_notes 2 ", r_notes)
     try:
         with open('notes.json', 'w', encoding="utf-8") as file:
             json.dump(r_notes, file, indent=2, ensure_ascii=False)
@@ -123,18 +129,51 @@ def search_note(name):
 
 def search_note_date(dat):
     """Функция поиска заметки"""
-
+    print("dat", dat)
     all_note = []
     r_notes = read_notes()
+    print("r_notes", r_notes)
 
     if len(r_notes) == 0:
-        t = 'ничего не найдено!'
-        print('\033[43m\033[1m {} \033[0m'.format(
-            'ничего не найдено!'))
-        return t
+        # t = 'ничего не найдено!'
+        # print('\033[43m\033[1m {} \033[0m'.format(
+        #     'ничего не найдено!'))
+        return 0
     else:
         for k in r_notes:
             if str(k["date/time"]) == dat:
                 x = str(k["id"]) + " " + str(k["header"]) + " " + str(k["note"]) + " " + str(k["date/time"]) + '\n'
                 all_note.append(x)
         return all_note
+
+def note_del(note):
+    r_notes = read_notes()
+
+    print("note ",  note)
+    n = str(note).split()
+    print("n ", n)
+    for k in r_notes:
+        print("str(id]) ", str(k["id"]))
+        print("n[0] ", n[0])
+        if str(k["id"]) == n[0]:
+            r_notes.remove(k)
+            record(r_notes)
+
+            return True
+
+def note_sel(note):
+    r_notes = read_notes()
+    note_del(note)
+    n = str(note).split()
+    x = []
+    for k in r_notes:
+        print("str(id]) ", str(k["id"]))
+        print("n[0] ", n[0])
+        if str(k["id"]) == n[0]:
+            x.append(k["header"])
+            x.append(k["note"])
+            print(k, "kkkk")
+            # r_notes.remove(k)
+            return x
+
+

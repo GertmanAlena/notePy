@@ -8,16 +8,16 @@ class Сhange_win(tk.Tk):
 
     def get_text(self):
 
-        args = self.e.get()
+        args_name = self.e.get()
         self.clear_text()
-        res = crJ.search_note(args)
+        res = crJ.search_note(args_name)
         rw.Radiobutton_change(res).mainloop()
 
     def get_text2(self):
 
-        args = self.e.get()
+        args_date = self.e.get()
         self.clear_text()
-        res = crJ.search_note_date(args)
+        res = crJ.search_note_date(args_date)
         rw.Radiobutton_change(res).mainloop()
 
     def clear_text(self):
@@ -71,7 +71,6 @@ class Сhange_win(tk.Tk):
         self.name = tk.IntVar(self)
         self.name_checkbutton = tk.Checkbutton(self, text="Ищем по названию", variable=self.name, command=self.select)
         self.name_checkbutton.pack(**self.position)
-
 
 if __name__ == "__main__":
     app = Сhange_win()

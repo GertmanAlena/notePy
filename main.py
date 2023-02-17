@@ -40,7 +40,7 @@ class App(tk.Tk):
       self.button5['command'] = self.search_window
       self.button5.pack(anchor=NW)
 
-      self.button5 = ttk.Button(self, text='Изменение заметки')
+      self.button5 = ttk.Button(self, text='Удалить/Измененить заметку')
       self.button5['command'] = self.change_window
       self.button5.pack(anchor=NW)
 
